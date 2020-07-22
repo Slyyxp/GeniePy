@@ -1,0 +1,13 @@
+credentials={
+	"username": "",
+	"password": ""
+}
+
+prefs={
+	"download_directory": "downloads",
+	"log_directory": "logs",
+	"default_format": 3,
+	"cover_name": "cover.jpg",
+	"artist_folders": True,
+	"ascii_art": True
+}
