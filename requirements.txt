@@ -1,0 +1,3 @@
+tqdm==4.45.0
+requests==2.20.0
+mutagen==1.42.0
