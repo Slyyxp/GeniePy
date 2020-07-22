@@ -25,9 +25,9 @@ cd GeniePy
 pip install -r requirements.txt
 ```
 
-- Insert username and password into config.py.example  
-
-- Rename config.py.example to config.py
+* Insert username and password into config.py.example  
+* Optionally add the device id & user agent of your own android device
+* Rename config.py.example to config.py
 
 ## Command Usage
 ```
@@ -49,7 +49,7 @@ password | Genie Password | `ReallyBadPassword123`
 device_id | Android Device ID | `eb9d53a3c424f961`
 user_agent | User Agent | `genie/ANDROID/5.1.1/WIFI/SM-G930L/dreamqltecaneb9d53a3c424f961/500200714/40807`
 
-**directories:**
+**prefs:**
 
 Config  | Description  | Example
 ------------- | ------------- | -------------
@@ -57,6 +57,7 @@ download_directory | Directory to download files to | `Z:/GeniePy/downloads`
 log_directory | Directory to save log files to  | `Z:/GeniePy/logs`
 default_format | Default download format (1: MP3, 2: 16-bit FLAC, 3: 24-bit FLAC) | `3`
 artist_folders | Whether or not to nest downloads into artist folders | `True/False`
+ascii_art | Whether or not to display ascii art on every run | `True/False`
 
 # To Do
 - [x] Figure out hardware identifiers  
