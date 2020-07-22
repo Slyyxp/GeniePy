@@ -1,16 +1,24 @@
+<p align="center">
+  <img src="https://image.genie.co.kr/imageg/web/common/logo_genie.png">
+</p>  
+
 ## Overview
 **GeniePy** is a tool for downloading streamable tracks from Genie.co.kr
 
 Tested on **[Python 3.8.0](https://www.python.org/downloads/release/python-380/)**
 
 
-## Installation
+## Installation & Setup
 
 ```
 git clone https://github.com/Slyyxp/GeniePy.git
 cd GeniePy
 pip install -r requirements.txt
 ```
+
+- Insert username and password into config.py.example  
+
+- Rename config.py.example to config.py
 
 ## Command Usage
 ```
@@ -28,8 +36,8 @@ Command  | Description  | Example
 
 Config  | Description  | Example
 ------------- | ------------- | -------------
-Username | Genie Username | Slyyxp
-Password | Genie Password | ReallyBadPassword123
+Username | Genie Username | `Slyyxp`
+Password | Genie Password | `ReallyBadPassword123`
 
 **directories:**
 
