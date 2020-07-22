@@ -17,3 +17,7 @@ class StreamMetadataError(Exception):
 		logger_exceptions.debug(message)
 		super().__init__(message)
 
+class NewDeviceError(Exception):
+	def __init__(self, message):
+		logger_exceptions.debug(message)
+		super().__init__(message)

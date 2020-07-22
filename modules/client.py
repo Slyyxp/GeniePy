@@ -16,11 +16,11 @@ class Client:
 		self.credentials = cfg.credentials
 		self.android_ver = "5.1.1"
 		self.app_ver = 40807
-		self.dev_id = "10c37b94c2e77279"
+		self.dev_id = "eb9d53a3c424f961"
 		self.dev_model = "SM-G930L"
-		self.ims_num = "f333a2aa7ac277e274429e87cd1ab17af20218f9c9001d228ad09f6ece520b91"
-		self.upnm = "MTU5NTQ1NTg4ODc="
-		self.usr_agent = "genie/ANDROID/5.1.1/WIFI/SM-G930L/dreamqltecan10c37b94c2e77279/500191128/40807"
+		self.ims_num = "72c4b5a6d16f65482ccd2657d833b9817329be12a586a7e37e1f602c56bde4c3"
+		self.upnm = "MTU4MTEzOTgxNTg="
+		self.usr_agent = "genie/ANDROID/5.1.1/WIFI/SM-G930L/dreamqltecaneb9d53a3c424f961/500200714/40807"
 
 		self.session.headers.update({
 			"User-Agent": self.usr_agent,
@@ -71,6 +71,7 @@ class Client:
 		self.usr_num = r['DATA0']['MemUno']
 		self.usr_token = r['DATA0']['MemToken']
 		self.stm_token = r['DATA0']['STM_TOKEN']
+
 
 	def get_meta(self, id):
 		"""
@@ -130,6 +131,8 @@ class Client:
 		}
 		r = self.make_call("stm", "player/j_StmInfo.json", data)
 		logger_client.debug(r)
+		if r['Result']['RetCode'] == "A00003":
+			raise exceptions.NewDeviceError("Device ID has changed since last stream.")
 		if r['Result']['RetCode'] != "0":
 			raise exceptions.StreamMetadataError("Failed to get stream metadata.")
 
