@@ -59,6 +59,7 @@ default_format | Default download format (1: MP3, 2: 16-bit FLAC, 3: 24-bit FLAC
 artist_folders | Whether or not to nest downloads into artist folders | `True/False`
 
 # To Do
+- [ ] Figure out hardware identifiers  
 - [ ] Refactor & Cleanup rip()
 - [ ] Playlist support
 - [ ] Artist support
