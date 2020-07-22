@@ -1,6 +1,10 @@
 <p align="center">
   <img src="https://image.genie.co.kr/imageg/web/common/logo_genie.png">
 </p>  
+<p align="center">
+  <img src="https://img.shields.io/github/issues/Slyyxp/GeniePy?style=for-the-badge">  
+  <img src="https://img.shields.io/github/languages/code-size/slyyxp/GeniePy?style=for-the-badge">  
+</p>  
 
 ## Overview
 **GeniePy** is a tool for downloading streamable tracks from Genie.co.kr
@@ -8,6 +12,11 @@
 Tested on **[Python 3.8.0](https://www.python.org/downloads/release/python-380/)**
 
 
+## Prerequisites
+
+- Python 3.6+
+- Genie.co.kr subscription.  
+  
 ## Installation & Setup
 
 ```
