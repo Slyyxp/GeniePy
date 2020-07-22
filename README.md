@@ -8,7 +8,7 @@
 </p>  
 
 ## Overview
-**GeniePy** is a tool for downloading streamable tracks from Genie.co.kr
+**GeniePy** is a tool for downloading streamable tracks from **[Genie.co.kr](https://www.genie.co.kr/)**
 
 Tested on **[Python 3.8.0](https://www.python.org/downloads/release/python-380/)**
 
