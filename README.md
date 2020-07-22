@@ -48,6 +48,10 @@ log_directory | Directory to save log files to  | `Z:/GeniePy/logs`
 default_format | Default download format (1: MP3, 2: 16-bit FLAC, 3: 24-bit FLAC) | `3`
 artist_folders | Whether or not to nest downloads into artist folders | `True/False`
 
+# To Do
+- [ ] Refactor & Cleanup rip()
+- [ ] Playlist support
+- [ ] Artist support
 
 ## Disclaimer
 - The usage of this script **may be** illegal in your country. It's your own responsibility to inform yourself of Copyright Law.
