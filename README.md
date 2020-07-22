@@ -4,6 +4,7 @@
 <p align="center">
   <img src="https://img.shields.io/github/issues/Slyyxp/GeniePy?style=for-the-badge">  
   <img src="https://img.shields.io/github/languages/code-size/slyyxp/GeniePy?style=for-the-badge">  
+  <img src="https://img.shields.io/maintenance/yes/2020?style=for-the-badge">  
 </p>  
 
 ## Overview
