@@ -31,7 +31,7 @@ pip install -r requirements.txt
 
 ## Command Usage
 ```
-python genie.py -u {album_url} -f 3
+python genie.py -u {album_url} -f {format}
 ```
 Command  | Description  | Example
 ------------- | ------------- | -------------
