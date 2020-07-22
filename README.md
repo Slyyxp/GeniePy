@@ -12,7 +12,6 @@
 
 Tested on **[Python 3.8.0](https://www.python.org/downloads/release/python-380/)**
 
-
 ## Prerequisites
 
 - Python 3.6+
@@ -39,15 +38,16 @@ Command  | Description  | Example
 -u | Genie album url (Required) | `https://www.genie.co.kr/detail/albumInfo?axnm=81510805`
 -f | Format. 1: MP3, 2: 16-bit FLAC, 3: 24-bit FLAC (Optional) | `2`
 
-
 ## config.py
 
 **credentials:**
 
 Config  | Description  | Example
 ------------- | ------------- | -------------
-Username | Genie Username | `Slyyxp`
-Password | Genie Password | `ReallyBadPassword123`
+username | Genie Username | `Slyyxp`
+password | Genie Password | `ReallyBadPassword123`
+device_id | Android Device ID | `eb9d53a3c424f961`
+user_agent | User Agent | `genie/ANDROID/5.1.1/WIFI/SM-G930L/dreamqltecaneb9d53a3c424f961/500200714/40807`
 
 **directories:**
 
@@ -59,7 +59,7 @@ default_format | Default download format (1: MP3, 2: 16-bit FLAC, 3: 24-bit FLAC
 artist_folders | Whether or not to nest downloads into artist folders | `True/False`
 
 # To Do
-- [ ] Figure out hardware identifiers  
+- [x] Figure out hardware identifiers  
 - [ ] Refactor & Cleanup rip()
 - [ ] Playlist support
 - [ ] Artist support

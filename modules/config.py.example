@@ -1,6 +1,8 @@
 credentials={
 	"username": "",
-	"password": ""
+	"password": "",
+	"device_id": "eb9d53a3c424f961",
+	"user_agent": "genie/ANDROID/5.1.1/WIFI/SM-G930L/dreamqltecaneb9d53a3c424f961/500200714/40807",
 }
 
 prefs={
