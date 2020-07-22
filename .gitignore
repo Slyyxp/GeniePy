@@ -130,5 +130,5 @@ dmypy.json
 
 # GeniePy specific.
 logs/
-/config.py
+modules/config.py
 .idea
