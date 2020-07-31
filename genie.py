@@ -82,83 +82,74 @@ def fix_tags(abs, ext, f_meta):
 		audio.save()
 
 
-def rip(url):
-	"""
-	:param url: Album url
-
-	rip() handles the ripping process.
-	"""
-	album_id = utils.check_url(url)
-	if not album_id:
-		return
-	meta = client.get_meta(album_id)
-	album_fol = "{} - {}".format(
-		parse.unquote(meta['DATA0']['DATA'][0]['ARTIST_NAME']),
-		parse.unquote(meta['DATA0']['DATA'][0]['ALBUM_NAME'])
-	)
-	if prefs['artist_folders']:
-		album_fol_abs = os.path.join(
-			os.path.dirname(__file__), prefs['download_directory'],
-			parse.unquote(utils.sanitize(meta['DATA0']['DATA'][0]['ARTIST_NAME'])), utils.sanitize(album_fol)
-		)
-	else:
-		album_fol_abs = os.path.join(
-			os.path.dirname(__file__), prefs['download_directory'], utils.sanitize(album_fol)
-		)
-	logger_genie.info("Album found: " + album_fol)
-	utils.make_dir(album_fol_abs)
-	cover_url = parse.unquote(meta['DATA0']['DATA'][0]['ALBUM_IMG_PATH_600'])
-	download_cover(cover_url, album_fol_abs)
-	f_meta = {
-		"track_total": len(meta['DATA1']['DATA']),
-		"album_artist": parse.unquote(meta['DATA0']['DATA'][0]['ARTIST_NAME']),
-		"release_date": meta['DATA0']['DATA'][0]['ALBUM_RELEASE_DT'],
-		"planning": parse.unquote(meta['DATA0']['DATA'][0]['ALBUM_PLANNER'])
-	}
-	f_meta['disc_total'] = meta['DATA1']['DATA'][f_meta['track_total'] - 1]['ALBUM_CD_NO']
-	for track in meta['DATA1']['DATA']:
-		try:
-			s_meta = client.get_stream_meta(track['SONG_ID'], args.f)
-		except exceptions.StreamMetadataError:
-			continue
-		cur = track['ROWNUM']
-		track_title = parse.unquote(track['SONG_NAME'])
-		f_meta['track_artist'] = parse.unquote(track['ARTIST_NAME'])
-		ext = utils.get_ext(s_meta['FILE_EXT'])
-		post_abs = os.path.join(
-			album_fol_abs, "{}. {}.{}".format(
-				cur.zfill(2), utils.sanitize(track_title), ext
-			)
-		)
-		if utils.exist_check(post_abs):
-			continue
-		if not utils.allowed_check(s_meta['STREAMING_LICENSE_YN']):
-			continue
-		pre_abs = os.path.join(album_fol_abs, cur + ".genie-dl")
-		specs = utils.parse_specs(s_meta['FILE_EXT'], s_meta['FILE_BIT'])
-		download_track(s_meta['STREAMING_MP3_URL'], track_title,
-		               pre_abs, cur, f_meta['track_total'], specs
-		               )
-		try:
-			fix_tags(pre_abs, ext, f_meta)
-			logger_genie.debug("Tags updated: {}".format(f_meta))
-		except Exception as e:
-			raise e
-		try:
-			os.rename(pre_abs, post_abs)
-			logger_genie.debug("{} has been renamed".format(post_abs))
-		except OSError:
-			raise exceptions.TrackRenameError("Could not rename {}".format(pre_abs))
-
-
 def main():
 	"""
-	Loop over all the url's in our argument and send them off to the ripper.
+	Main function which will control the flow of our script when called.
 	"""
 	total = len(args.u)
 	for n, url in enumerate(args.u, 1):
 		logger_genie.info("Album {} of {}".format(n, total))
-		rip(url)
+		album_id = utils.check_url(url)
+		if not album_id:
+			return
+		meta = client.get_meta(album_id)
+		album_fol = "{} - {}".format(
+			parse.unquote(meta['DATA0']['DATA'][0]['ARTIST_NAME']),
+			parse.unquote(meta['DATA0']['DATA'][0]['ALBUM_NAME'])
+		)
+		if prefs['artist_folders']:
+			album_fol_abs = os.path.join(
+				os.path.dirname(__file__), prefs['download_directory'],
+				parse.unquote(utils.sanitize(meta['DATA0']['DATA'][0]['ARTIST_NAME'])), utils.sanitize(album_fol)
+			)
+		else:
+			album_fol_abs = os.path.join(
+				os.path.dirname(__file__), prefs['download_directory'], utils.sanitize(album_fol)
+			)
+		logger_genie.info("Album found: " + album_fol)
+		utils.make_dir(album_fol_abs)
+		cover_url = parse.unquote(meta['DATA0']['DATA'][0]['ALBUM_IMG_PATH_600'])
+		download_cover(cover_url, album_fol_abs)
+		f_meta = {
+			"track_total": len(meta['DATA1']['DATA']),
+			"album_artist": parse.unquote(meta['DATA0']['DATA'][0]['ARTIST_NAME']),
+			"release_date": meta['DATA0']['DATA'][0]['ALBUM_RELEASE_DT'],
+			"planning": parse.unquote(meta['DATA0']['DATA'][0]['ALBUM_PLANNER'])
+		}
+		f_meta['disc_total'] = meta['DATA1']['DATA'][f_meta['track_total'] - 1]['ALBUM_CD_NO']
+		for track in meta['DATA1']['DATA']:
+			try:
+				s_meta = client.get_stream_meta(track['SONG_ID'], args.f)
+			except exceptions.StreamMetadataError:
+				continue
+			cur = track['ROWNUM']
+			track_title = parse.unquote(track['SONG_NAME'])
+			f_meta['track_artist'] = parse.unquote(track['ARTIST_NAME'])
+			ext = utils.get_ext(s_meta['FILE_EXT'])
+			post_abs = os.path.join(
+				album_fol_abs, "{}. {}.{}".format(
+					cur.zfill(2), utils.sanitize(track_title), ext
+				)
+			)
+			if utils.exist_check(post_abs):
+				continue
+			if not utils.allowed_check(s_meta['STREAMING_LICENSE_YN']):
+				continue
+			pre_abs = os.path.join(album_fol_abs, cur + ".genie-dl")
+			specs = utils.parse_specs(s_meta['FILE_EXT'], s_meta['FILE_BIT'])
+			download_track(s_meta['STREAMING_MP3_URL'], track_title,
+			               pre_abs, cur, f_meta['track_total'], specs
+			               )
+			try:
+				fix_tags(pre_abs, ext, f_meta)
+				logger_genie.debug("Tags updated: {}".format(f_meta))
+			except Exception as e:
+				raise e
+			try:
+				os.rename(pre_abs, post_abs)
+				logger_genie.debug("{} has been renamed".format(post_abs))
+			except OSError:
+				raise exceptions.TrackRenameError("Could not rename {}".format(pre_abs))
 
 
 if __name__ == '__main__':
