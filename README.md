@@ -19,10 +19,10 @@ Tested on **[Python 3.8.0](https://www.python.org/downloads/release/python-380/)
   
 ## Installation & Setup
 
-```bash
-git clone https://github.com/Slyyxp/GeniePy.git
-cd GeniePy
-pip install -r requirements.txt
+```console
+$ git clone https://github.com/Slyyxp/GeniePy.git
+$ cd GeniePy
+$ pip install -r requirements.txt
 ```
 
 * Insert username and password into config.py.example  
