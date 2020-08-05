@@ -56,7 +56,6 @@ class Client:
 		self.usr_token = r['DATA0']['MemToken']
 		self.stm_token = r['DATA0']['STM_TOKEN']
 
-
 	def get_meta(self, id):
 		"""
 		:param id: Album ID.
@@ -75,7 +74,7 @@ class Client:
 		r = self.make_call("app", "song/j_AlbumSongList.json", data)
 		logger_client.debug(r)
 		if r['Result']['RetCode'] != "0":
-			raise Exception("Failed to get album metadata.")
+			raise exceptions.AlbumMetadataError("Failed to get album metadata.")
 
 		return r
 
