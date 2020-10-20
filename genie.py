@@ -7,6 +7,7 @@ import mutagen.id3 as id3
 from mutagen.flac import FLAC
 from mutagen.id3 import ID3NoHeaderError
 from tqdm import tqdm
+from requests import HTTPError
 
 from modules import client, config, exceptions, logger, utils
 
@@ -120,6 +121,9 @@ def main():
 		for track in meta['DATA1']['DATA']:
 			try:
 				s_meta = client.get_stream_meta(track['SONG_ID'], args.f)
+			except HTTPError:
+				logger_genie.warning("Could not get stream info for {}".format(track['SONG_ID']))
+				continue
 			except exceptions.StreamMetadataError:
 				continue
 			cur = track['ROWNUM']
