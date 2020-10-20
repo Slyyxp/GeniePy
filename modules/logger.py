@@ -19,5 +19,7 @@ def log_setup():
 	console.setFormatter(formatter)
 	logging.getLogger("").addHandler(console)
 	logger_genie = logging.getLogger("Genie")
+	# Suppress requests module if level < WARNING
+	logging.getLogger("requests").setLevel(logging.WARNING)
 
 	return logger_genie
