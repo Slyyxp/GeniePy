@@ -65,10 +65,13 @@ def fix_tags(abs, ext, f_meta):
 			audio = id3.ID3(abs)
 		except ID3NoHeaderError:
 			audio = id3.ID3()
-		audio['TRCK'] = id3.TRCK(text=str(audio['TRCK']) + "/" + str(f_meta['track_total']))
-		audio['TPOS'] = id3.TPOS(text=str(audio['TPOS']) + "/" + str(f_meta['disc_total']))
-		audio['TDRC'] = id3.TPOS(text=f_meta['release_date'])
-		audio['TPUB'] = id3.TPOS(text=f_meta['planning'])
+		audio['TIT2'] = id3.TIT2(text=str(f_meta['track_title']))
+		audio['TALB'] = id3.TALB(text=str(f_meta['album_title']))
+		audio['TCON'] = id3.TCON(text=str(f_meta['album_title']))
+		audio['TRCK'] = id3.TRCK(text=str(f_meta['track_number']) + "/" + str(f_meta['track_total']))
+		audio['TPOS'] = id3.TPOS(text=str(f_meta['disc_number']) + "/" + str(f_meta['disc_total']))
+		audio['TDRC'] = id3.TDRC(text=f_meta['release_date'])
+		audio['TPUB'] = id3.TPUB(text=f_meta['planning'])
 		audio['TPE1'] = id3.TPE1(text=f_meta['track_artist'])
 		audio['TPE2'] = id3.TPE2(text=f_meta['album_artist'])
 		audio.save(abs, "v2_version=3")
@@ -115,6 +118,7 @@ def main():
 			cover_url = parse.unquote(meta['DATA0']['DATA'][0]['ALBUM_IMG_PATH'])
 		download_cover(cover_url, album_fol_abs)
 		f_meta = {
+			"album_title": meta['DATA0']['DATA'][0]['ALBUM_NAME'],
 			"track_total": len(meta['DATA1']['DATA']),
 			"album_artist": parse.unquote(meta['DATA0']['DATA'][0]['ARTIST_NAME']),
 			"release_date": meta['DATA0']['DATA'][0]['ALBUM_RELEASE_DT'],
@@ -131,7 +135,10 @@ def main():
 				continue
 			cur = track['ROWNUM']
 			track_title = parse.unquote(track['SONG_NAME'])
+			f_meta['track_title'] = track_title
 			f_meta['track_artist'] = parse.unquote(track['ARTIST_NAME'])
+			f_meta['disc_number'] = track['ALBUM_CD_NO']
+			f_meta['track_number'] = track['ALBUM_TRACK_NO']
 			ext = utils.get_ext(s_meta['FILE_EXT'])
 			post_abs = os.path.join(
 				album_fol_abs, "{}. {}.{}".format(
