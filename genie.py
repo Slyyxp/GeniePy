@@ -110,6 +110,9 @@ def main():
 		logger_genie.info("Album found: " + album_fol)
 		utils.make_dir(album_fol_abs)
 		cover_url = parse.unquote(meta['DATA0']['DATA'][0]['ALBUM_IMG_PATH_600'])
+		# If no 600x600 artwork is present then fallback to what's available
+		if not cover_url:
+			cover_url = parse.unquote(meta['DATA0']['DATA'][0]['ALBUM_IMG_PATH'])
 		download_cover(cover_url, album_fol_abs)
 		f_meta = {
 			"track_total": len(meta['DATA1']['DATA']),
